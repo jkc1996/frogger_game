@@ -1,0 +1,22 @@
+body {
+    text-align: center;
+}
+
+button {
+    width: 505px;
+}
+
+button:hover {
+    border-color: red;
+}
+
+#timer {
+    height: 2em;
+}
+
+@media screen and (min-width: 1000px) {
+  #header {
+    width: 505px;
+    margin: 0 auto;
+  }
+}
