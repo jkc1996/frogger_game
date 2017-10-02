@@ -1,7 +1,8 @@
 "use strict";
 /* variable which prevents the entities to render and update themselves automatically.
-this variable will become true only when you click on the starGame button.which is
-reqired to start timer,rendering of objects and player movements. */
+ * this variable will become true only when you click on the starGame button.which is
+ * reqired to start timer,rendering of objects and player movements.
+ */
 var play = false;
 // timer function global variable
 var minutes = 1;
@@ -12,9 +13,9 @@ var scoreDiv = document.getElementById("score");
 var livesDiv = document.getElementById("lives");
 
 /*
-gameTiming() controls the functionality related to the timing.
-clearMessage() clears the message at the top part of the canvas.
-scoreCard(gameEvent) displays the different events and the according to that event score & lives.
+ * gameTiming() controls the functionality related to the timing.
+ * clearMessage() clears the message at the top part of the canvas.
+ * scoreCard(gameEvent) displays the different events and the according to that event score & lives.
 */
 
 function gameTiming() {
@@ -127,9 +128,9 @@ function clearMessage() {
         // clears the canvas display.
         ctx.clearRect(0, 0, 505, 50);
     }
-    /*It is required that every time when we start the game,first click on startGame button.
-    In case of game over,winning condition or between the game if you want you can click
-    on the newGame button to start the fresh game.
+    /* It is required that every time when we start the game,first click on startGame button.
+     * In case of game over,winning condition or between the game if you want you can click
+     * on the newGame button to start the fresh game.
     */
     //Buttons for startGame and newGame.
 var newGameButton = document.getElementById('newGame');
@@ -153,8 +154,9 @@ function newGame() {
         clearTimer = setInterval(gameTiming, 1000);
         play = true;
     }
-    /*Function which will start the game and set our 'play' variable equals to true,which will
-    then make object rendering and updating possible.*/
+    /* Function which will start the game and set our 'play' variable equals to true,which will
+     * then make object rendering and updating possible.
+     */
 function startGame() {
         timeDiv.innerHTML = '';
         clearTimer = setInterval(gameTiming, 1000);
@@ -208,7 +210,8 @@ Enemy.prototype.render = function() {
 };
 
 /*Player class which handles all the functionality related to player instance.
-This class requires an update(), render() and a handleInput() method.  */
+ * This class requires an update(), render() and a handleInput() method.
+ */
 var Player = function() {
     //Initial position of our player.
     this.x = 202;
@@ -235,8 +238,9 @@ Player.prototype.update = function() {
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-/*resetGame resets the player position,score & lives.
- It also reset the different game objects like stars,rocks,gems and hearts.*/
+/* resetGame resets the player position,score & lives.
+ * It also reset the different game objects like stars,rocks,gems and hearts.
+ */
 Player.prototype.resetGame = function() {
     this.x = 202;
     this.y = 415;
@@ -250,7 +254,9 @@ Player.prototype.resetGame = function() {
     console.log("lives is" + this.lives);
 };
 
-/*handleInput fuction defines the varios player movement according to which key user press. */
+/*handleInput fuction defines the varios player movement
+ * according to which key user press.
+ */
 Player.prototype.handleInput = function(obj) {
     if (play === true) {
         if (this.x > 0) {
@@ -526,8 +532,9 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-/*function which checks the collision between our player and bugs.
- obj1 and obj2 refer to the player and enemy bugs respectively.*/
+/* function which checks the collision between our player and bugs.
+ * obj1 and obj2 refer to the player and enemy bugs respectively.
+ */
 function checkCollisions(obj1, obj2) {
 
     if ((obj1.x < obj2.x + 50) &&
@@ -582,3 +589,4 @@ function checkCollection(player) {
             scoreCard(1);
         }
     }
+}
