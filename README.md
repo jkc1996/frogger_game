@@ -7,7 +7,7 @@ In this game you have a Player,Enemies (Bugs), and lots of Treasure (Collectable
 
 ## How to load the Game ?
 
-1. **Download the app**
+1. **Download the app by clicking Clone or Download Button.**
 2. **Just open the index.html with your favorite browser.**
 3. **And have fun!!!**
 
