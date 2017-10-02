@@ -176,7 +176,6 @@ function resetCollectables() {
 }
 
 // Enemies our player must avoid
-
 var Enemy = function(y) {
     // Variables applied to each of our instances of bug
     this.x = Math.floor((Math.random() * 1500) + 100) * (-1);
