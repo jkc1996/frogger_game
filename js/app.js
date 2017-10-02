@@ -45,10 +45,7 @@ function scoreCard(gameEvent) {
             ctx.textAlign = "center";
             ctx.fillStyle = "red";
             ctx.fillText("COLLISION!!!", 250, 45);
-            gem.reset();
-            heart.reset();
-            star.reset();
-            rock.reset();
+            resetCollectables();
             break;
             //defines the game over condition.
         case 0:
@@ -73,10 +70,7 @@ function scoreCard(gameEvent) {
             ctx.fillText("BONUS!!!", 250, 45);
             player.score = player.score + 50;
             scoreDiv.innerHTML = player.score;
-            gem.reset();
-            heart.reset();
-            star.reset();
-            rock.reset();
+            resetCollectables();
             break;
             //defines the condition of collection of stars.
         case 2:
@@ -86,10 +80,7 @@ function scoreCard(gameEvent) {
             ctx.fillText("STARBOY !!", 70, 45);
             player.score += 50;
             scoreDiv.innerHTML = player.score;
-            gem.reset();
-            heart.reset();
-            star.reset();
-            rock.reset();
+            resetCollectables();
             break;
             //defines the game winning situation.
         case 3:
@@ -115,10 +106,7 @@ function scoreCard(gameEvent) {
             if (player.lives >= 1) {
                 player.lives = player.lives;
                 livesDiv.innerHTML = player.lives;
-                heart.reset();
-                star.reset();
-                gem.reset();
-                rock.reset();
+                resetCollectables();
             }
             break;
             //defines the condition of collection of hearts.
@@ -129,13 +117,10 @@ function scoreCard(gameEvent) {
             ctx.fillText("HEART !!!", 450, 45);
             player.lives = player.lives + 1;
             livesDiv.innerHTML = player.lives;
-            gem.reset();
-            heart.reset();
-            star.reset();
-            rock.reset();
+            resetCollectables();
             break;
     }
-    setTimeout(clearMessage, 4000);
+    setTimeout(clearMessage, 6000);
 }
 
 function clearMessage() {
@@ -181,6 +166,14 @@ function startGame() {
     }
     //event which is required for initialization of our game.
 startGameButton.addEventListener('click', startGame);
+
+//Function responsible for the resetting different entities when some event happen.
+function resetCollectables() {
+    gem.reset();
+    heart.reset();
+    star.reset();
+    rock.reset();
+}
 
 // Enemies our player must avoid
 
@@ -250,10 +243,7 @@ Player.prototype.resetGame = function() {
     this.y = 415;
     this.score = 0;
     this.lives = 3;
-    star.reset();
-    heart.reset();
-    gem.reset();
-    rock.reset();
+    resetCollectables();
     console.log("Game is reset !!");
     scoreDiv.innerHTML = this.score;
     console.log("score is" + this.score);
@@ -498,7 +488,6 @@ Star.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
 //initialition of rock object.
 var rock = new Rock();
 
@@ -594,4 +583,3 @@ function checkCollection(player) {
             scoreCard(1);
         }
     }
-}
