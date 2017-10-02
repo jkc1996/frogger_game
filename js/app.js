@@ -260,7 +260,9 @@ Player.prototype.resetGame = function() {
 Player.prototype.handleInput = function(obj) {
     if (play === true) {
         if (this.x > 0) {
-            //if left key is pressed move player to it's left by decresing it's X position value, knowing that player does not moveoff the canvas.
+            /* if left key is pressed move player to it's left by decresing it's X position value,
+             * knowing that player does not moveoff the canvas.
+             */
             if (obj === 'left') {
                 if (this.allowableSpace(obj)) {
                     this.x = this.x - 101;
@@ -270,7 +272,9 @@ Player.prototype.handleInput = function(obj) {
 
         if (this.x <= 303) {
             if (obj === 'right') {
-                //if right key is pressed move player to it's right by incrising it's X position value, knowing that player does not moveoff the canvas.
+                /*if right key is pressed move player to it's right by incrising it's X position value,
+                 * knowing that player does not moveoff the canvas.
+                 */
                 if (this.allowableSpace(obj)) {
                     this.x = this.x + 101;
                 }
@@ -279,7 +283,9 @@ Player.prototype.handleInput = function(obj) {
 
         if (this.y >= 68) {
             if (obj === 'up') {
-                //if up key is pressed move player upside by decrising it's Y position value, knowing that player does not moveoff the canvas.
+                /* if up key is pressed move player upside by decrising it's Y position value,
+                 * knowing that player does not moveoff the canvas.
+                 */
                 if (this.allowableSpace(obj)) {
                     this.y = this.y - 83;
                 }
@@ -287,7 +293,9 @@ Player.prototype.handleInput = function(obj) {
         }
         if (this.y < 400) {
             if (obj === 'down') {
-                //if down key is pressed move player downside by incrising it's Y position value, knowing that player does not moveoff the canvas.
+                /* if down key is pressed move player downside by incrising it's Y position value,
+                 * knowing that player does not moveoff the canvas.
+                 */
                 if (this.allowableSpace(obj)) {
                     this.y = this.y + 83;
                 }
