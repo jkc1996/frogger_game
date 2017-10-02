@@ -195,12 +195,10 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     if (this.x < 700) {
-
         this.x = this.x + (this.speed) * dt;
     } else {
         this.speed = Math.floor((Math.random() * 100) + 100);
         this.x = -100;
-
     }
 };
 
