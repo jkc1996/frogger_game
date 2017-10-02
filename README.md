@@ -32,3 +32,13 @@ _Two things will terminate your game:_
 8. After winning, loosing or between the game, if you want you can start the new game by pressing **New Game** Button.
 
 _The road is not simple & target is not easy, So Do your best to achieve target and do not let our enemy step you! All the Best !!_
+
+## Contributing to Project
+
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the us before making a change.
+
+### Pull Request Process
+
+Ensure any install or build dependencies are removed before the end of the layer when doing a build.
+Update the README.md with details of changes to the interface, this includes new environment variables, new functionality etc.
+You may merge the Pull Request, or if you do not have permission to do that, you may request us to merge it for you.
