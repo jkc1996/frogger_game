@@ -40,6 +40,17 @@ function gameTiming(){
 function scoreCard(gameEvent) {
 
     switch (gameEvent) {
+        //defines the condition of collision with bugs.
+        case -1:
+            ctx.font = "24px Helvetica";
+            ctx.textAlign = "center";
+            ctx.fillStyle = "red";
+            ctx.fillText("COLLISION!!!", 250, 45);
+            gem.reset();
+            heart.reset();
+            star.reset();
+            rock.reset();
+        break;
         //defines the game over condition.
         case 0:
             player.score = 0;
@@ -55,17 +66,6 @@ function scoreCard(gameEvent) {
             ctx.fillText("GAME OVER!!!", 250, 45);
             play = false;
         break;
-        //defines the game winning situation.
-        case 3:
-            ctx.font = "36px Impact";
-            ctx.textAlign = "center";
-            ctx.fillStyle = "red";
-            ctx.strokeStyle = "black";
-            clearMessage();
-            clearInterval(clearTimer);
-            ctx.fillText("You Won!!!", 250, 45);
-            play = false;
-        break;
         //defines the condition for collection of gems.
         case 1:
             ctx.font = "24px Helvetica";
@@ -74,17 +74,6 @@ function scoreCard(gameEvent) {
             ctx.fillText("BONUS!!!", 250, 45);
             player.score = player.score + 50;
             scoreDiv.innerHTML = player.score;
-            gem.reset();
-            heart.reset();
-            star.reset();
-            rock.reset();
-        break;
-        //defines the condition of collision with bugs.
-        case -1:
-            ctx.font = "24px Helvetica";
-            ctx.textAlign = "center";
-            ctx.fillStyle = "red";
-            ctx.fillText("COLLISION!!!", 250, 45);
             gem.reset();
             heart.reset();
             star.reset();
@@ -103,6 +92,17 @@ function scoreCard(gameEvent) {
             star.reset();
             rock.reset();
         break;
+        //defines the game winning situation.
+        case 3:
+            ctx.font = "36px Impact";
+            ctx.textAlign = "center";
+            ctx.fillStyle = "red";
+            ctx.strokeStyle = "black";
+            clearMessage();
+            clearInterval(clearTimer);
+            ctx.fillText("You Won!!!", 250, 45);
+            play = false;
+        break;
         //defines the condition of returning of player to it's initial position.
         case 4:
             ctx.font = "24px Helvetica";
@@ -112,7 +112,7 @@ function scoreCard(gameEvent) {
             player.score += 100;
             scoreDiv.innerHTML = player.score;
             player.x = 202;
-            player.y =415;
+            player.y = 415;
             if(player.lives >= 1)
             {
                 player.lives = player.lives;
@@ -303,11 +303,71 @@ Player.prototype.handleInput = function(obj) {
     if(this.y<68){
         //when player will be at top of the canvas,touching the water, player should return to it's original position.
         scoreCard(4);
-
     }
 console.log("Player x:" + this.x + " Player y:" + this.y);
-};
 }
+};
+
+/*Function responsible for the space for our player object.it also consist condition for the collection of different entities.*/
+Player.prototype.allowableSpace = function(direction) {
+    var leftFull = false;
+    var rightFull = false;
+    var upFull = false;
+    var downFull = false;
+if(this.lives !=0)
+{
+    //conditions which defines that in case of rock player can't move on the rocks, by preventing the player movement on canvas.
+        if(this.x + 101 === rock.x && this.y === rock.y){
+            rightFull = true;
+        }
+        if(this.x  === rock.x + 101 && this.y === rock.y){
+            leftFull = true;
+        }
+        if(this.x === rock.x && this.y +83 === rock.y){
+            downFull = true;
+        }
+        if(this.x === rock.x && this.y === rock.y + 83){
+            upFull = true;
+        }
+    }    //end of this.lives!= 0
+
+     switch(direction) {
+        case ("left"):
+            if (leftFull) {
+                return false;
+            }
+            else {
+                return true;
+            }
+            break;
+        case ("right"):
+            if (rightFull) {
+                return false;
+            }
+            else {
+                return true;
+            }
+            break;
+        case ("up"):
+            if (upFull) {
+                return false;
+            }
+            else {
+                return true;
+            }
+            break;
+        case ("down"):
+            if (downFull) {
+                return false;
+            }
+            else {
+                return true;
+            }
+            break;
+        default:
+            return true;
+}
+};
 
 //Rock class consisting functionality related rock object's initial position &image.
 var Rock = function() {
@@ -323,15 +383,15 @@ Rock.prototype.render = function() {
 
 //updation in rock's position every time of initialition of game.
 Rock.prototype.update = function() {
-    var that = this;
-    var a;
-    var b;
-    a = Math.floor((Math.random() * 2) + 0) * 101;
-    b = (Math.floor((Math.random() * 5) + 1) * 83);
+    var self = this;
+    var rockX;
+    var rockY;
+    rockX = Math.floor((Math.random() * 2) + 0) * 101;
+    rockY = (Math.floor((Math.random() * 5) + 1) * 83);
     //checking the boundary of the canvas
-    if (a < 606 && a > 505 && b < 606 && b > 505) {
-        that.x = a;
-        that.y = b;
+    if (rockX < 606 && rockX > 505 && rockY < 606 && rockY > 505) {
+        self.x = rockX;
+        self.y = rockY;
     }
 };
 
@@ -340,9 +400,6 @@ Rock.prototype.update = function() {
     this.y = Math.floor(Math.random() * 1+3)*83;
     this.x = Math.floor(Math.random() * 2+3)*101;
 };
-
-//initialition of rock object.
-var rock = new Rock();
 
 //Heart class with the functionality related to the heart's object.
 var Heart = function()
@@ -355,15 +412,15 @@ var Heart = function()
 
 //updation in heart's position every time of initialition of game.
 Heart.prototype.update = function() {
-    var that = this;
-    var a;
-    var b;
-    a = Math.floor((Math.random() * 2) + 0) * 101;
-    b = (Math.floor((Math.random() * 4) + 1) * 83);
+    var self = this;
+    var heartX;
+    var heartY;
+    heartX = Math.floor((Math.random() * 2) + 0) * 101;
+    heartY = (Math.floor((Math.random() * 4) + 1) * 83);
     //checking the boundary of the canvas
-    if (a < 606 && a > 505 && b < 606 && b > 505) {
-        that.x = a;
-        that.y = b;
+    if (heartX < 606 && heartX > 505 && heartY < 606 && heartY > 505) {
+        self.x = heartX;
+        self.y = heartY;
     }
 };
 
@@ -379,10 +436,7 @@ Heart.prototype.render = function() {
      ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//initialition of heart object.
-var heart = new Heart () ;
-
-//Heart class with the functionality related to the gem's object.
+//Gem class with the functionality related to the gem's object.
 var Gem = function()
 {
     this.x = Math.floor((Math.random()*3))*101;
@@ -393,15 +447,15 @@ var Gem = function()
 
 //updation in gem's position every time of initialition of game.
 Gem.prototype.update = function() {
-    var that = this;
-    var a;
-    var b;
-    a = Math.floor((Math.random() * 3) + 1) * 101;
-    b = (Math.floor((Math.random() * 3) + 4) * 83);
+    var self = this;
+    var gemX;
+    var gemY;
+    gemX = Math.floor((Math.random() * 3) + 1) * 101;
+    gemY = (Math.floor((Math.random() * 3) + 4) * 83);
     //checking the boundary of the canvas
-    if (a < 606 && a > 505 && b < 606 && b > 505) {
-        that.x = a;
-        that.y = b;
+    if (gemX < 606 && gemX > 505 && gemY < 606 && gemY > 505) {
+        self.x = gemX;
+        self.y = gemY;
     }
 
 };
@@ -419,26 +473,7 @@ Gem.prototype.render = function() {
      ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//initialition of gem object.
-var gem = new Gem ();
-// instantiation of the objects.
-// Placing all enemy objects in an array called allEnemies
-// Placing the player object in a variable called player
-
-var player = new Player();
-
-var en1 = new Enemy(60); //60
-var en2 = new Enemy(143); //143
-var en3 = new Enemy(226); //226
-
-
-var allEnemies = [en1, en2, en3];
-
-for(var i=0; i<allEnemies.length; i++){
-    allEnemies[i].update(100, player);
-}
-
-//Heart class with the functionality related to the star's object.
+//Star class with the functionality related to the star's object.
 var Star = function() {
     this.x = 403;
     this.y = 203;
@@ -448,15 +483,15 @@ var Star = function() {
 
 //updation in star's position every time of initialition of game.
 Star.prototype.update = function() {
-    var that = this;
-    var a;
-    var b;
-    a = Math.floor((Math.random() * 2) + 3) * 101;
-    b = Math.floor((Math.random() * 3) + 1) * 83;
+    var self = this;
+    var starX;
+    var starY;
+    starX = Math.floor((Math.random() * 2) + 3) * 101;
+    starY = Math.floor((Math.random() * 3) + 1) * 83;
     //checking the boundary of the canvas
-    if (a < 606 && a > 505 && b < 606 && b > 505) {
-        that.x = a;
-        that.y = b;
+    if (starX < 606 && starX > 505 && starY < 606 && starY > 505) {
+        self.x = starX;
+        self.y = starY;
     }
 };
 
@@ -472,8 +507,32 @@ Star.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
+//initialition of rock object.
+var rock = new Rock();
+
+//initialition of heart object.
+var heart = new Heart () ;
+
+//initialition of gem object.
+var gem = new Gem ();
+
 //initialition of star object.
 var star = new Star();
+
+// Placing all enemy objects in an array called allEnemies
+// Placing the player object in a variable called player
+var player = new Player();
+
+var en1 = new Enemy(60);
+var en2 = new Enemy(143);
+var en3 = new Enemy(226);
+
+var allEnemies = [en1, en2, en3];
+
+for(var i=0; i<allEnemies.length; i++){
+    allEnemies[i].update(100, player);
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method.
@@ -527,7 +586,6 @@ if (player.x < star.x + 50 &&
         player.y < star.y + 50 &&
         player.y + 50 > star.y) {
         scoreCard(2);
-
     }
 
 //condition for collection of heart object by player.
@@ -548,65 +606,3 @@ if (player.x < star.x + 50 &&
         }
 }
 }
-
-/*Function responsible for the space for oue player object.it also consist condition for the collection of different entities.*/
-Player.prototype.allowableSpace = function(direction) {
-    var leftFull = false;
-    var rightFull = false;
-    var upFull = false;
-    var downFull = false;
-if(this.lives !=0)
-{
-    //conditions which defines that in case of rock player can't move on the rocks, by preventing the player movement on canvas.
-        if(this.x + 101 === rock.x && this.y === rock.y){
-            rightFull = true;
-        }
-        if(this.x  === rock.x + 101 && this.y === rock.y){
-            leftFull = true;
-        }
-        if(this.x === rock.x && this.y +83 === rock.y){
-            downFull = true;
-        }
-        if(this.x === rock.x && this.y === rock.y + 83){
-            upFull = true;
-        }
-
-    }    //end of this.lives!= 0
-
-     switch(direction) {
-        case ("left"):
-            if (leftFull) {
-                return false;
-            }
-            else {
-                return true;
-            }
-            break;
-        case ("right"):
-            if (rightFull) {
-                return false;
-            }
-            else {
-                return true;
-            }
-            break;
-        case ("up"):
-            if (upFull) {
-                return false;
-            }
-            else {
-                return true;
-            }
-            break;
-        case ("down"):
-            if (downFull) {
-                return false;
-            }
-            else {
-                return true;
-            }
-            break;
-        default:
-            return true;
-}
-};
