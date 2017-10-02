@@ -3,7 +3,8 @@ body {
 }
 
 button {
-    width: 250px;
+    margin: 10px;
+    width: 230px;
 }
 
 button:hover {
@@ -12,6 +13,10 @@ button:hover {
 
 #timer {
     height: 2em;
+}
+
+#header {
+    border: 2px solid blue;
 }
 
 @media screen and (min-width: 1000px) {
