@@ -46,10 +46,12 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
-        checkCollisions(player, en1);
-        checkCollisions(player, en2);
-        checkCollisions(player, en3);
-        checkCollection(player);
+        player.checkCollisions(en1);
+        player.checkCollisions(en2);
+        player.checkCollisions(en3);
+        player.heartCollection(heart);
+        player.gemCollection(gem);
+        player.starCollection(star);
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
