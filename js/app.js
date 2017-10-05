@@ -68,7 +68,7 @@ function scoreCard(gameEvent) {
             ctx.font = "24px Helvetica";
             ctx.textAlign = "center";
             ctx.fillStyle = "orange";
-            ctx.fillText("BONUS!!!", 250, 45);
+            ctx.fillText("BONUS!!!", 300, 20);
             player.score = player.score + 50;
             scoreDiv.innerHTML = player.score;
             resetCollectables();
@@ -99,7 +99,7 @@ function scoreCard(gameEvent) {
             ctx.font = "24px Helvetica";
             ctx.textAlign = "center";
             ctx.fillStyle = "black";
-            ctx.fillText("AGAIN !!", 250, 45);
+            ctx.fillText("AGAIN !!", 150,20);
             player.score += 100;
             scoreDiv.innerHTML = player.score;
             player.x = 202;
@@ -128,22 +128,17 @@ function clearMessage() {
         // clears the canvas display.
         ctx.clearRect(0, 0, 505, 50);
     }
-    /* It is required that every time when we start the game,first click on startGame button.
+    /* It is required that every time when we start the game,first click on start new Game button.
      * In case of game over,winning condition or between the game if you want you can click
-     * on the newGame button to start the fresh game.
+     * on the this button to start the fresh game.
     */
-    //Buttons for startGame and newGame.
-var newGameButton = document.getElementById('newGame');
-var startGameButton = document.getElementById('startGame');
+    //Buttons for starting newGame.
+var newGameButton = document.getElementById('startNewGame');
 
-//Event which handles the functionality for the newgame.
-function newGameLoad() {
-        newGameButton.addEventListener('click', newGame);
-    }
     /* Function which initial the newgame.this function calls function which
        reset the position of player & initialize the timer again.
     */
-function newGame() {
+function startNewGame() {
         player.resetGame();
         clearInterval(clearTimer);
         // start new timer
@@ -154,20 +149,9 @@ function newGame() {
         clearTimer = setInterval(gameTiming, 1000);
         play = true;
     }
-    /* Function which will start the game and set our 'play' variable equals to true,which will
-     * then make object rendering and updating possible.
-     */
-function startGame() {
-        timeDiv.innerHTML = '';
-        clearTimer = setInterval(gameTiming, 1000);
-        // prevent start game button from being used again
-        startGameButton.removeEventListener('click', startGame);
-        // add new game click listener
-        newGameLoad();
-        play = true;
-    }
-    //event which is required for initialization of our game.
-startGameButton.addEventListener('click', startGame);
+
+//Event responsible for starting new game.
+newGameButton.addEventListener('click', startNewGame);
 
 //Function responsible for the resetting different entities when some event happen.
 function resetCollectables() {
@@ -223,8 +207,6 @@ var Player = function() {
 };
 //Player's update method consist of condition of game loosing and winning.
 Player.prototype.update = function() {
-    this.x = this.x;
-    this.y = this.y;
     if (this.lives === 0) {
         scoreCard(0);
     }
@@ -538,29 +520,27 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-/* function which checks the collision between our player and bugs.
- * obj1 and obj2 refer to the player and enemy bugs respectively.
- */
-function checkCollisions(obj1, obj2) {
+// function which checks the collision between our player and bugs.
+Player.prototype.checkCollisions = function(bug) {
 
-    if ((obj1.x < obj2.x + 50) &&
-        (obj1.x + 50 > obj2.x) &&
-        (obj1.y < obj2.y + 50) &&
-        (50 + obj1.y > obj2.y)) {
+    if ((this.x < bug.x + 50) &&
+        (this.x + 50 > bug.x) &&
+        (this.y < bug.y + 50) &&
+        (50 + this.y > bug.y)) {
 
-        obj1.x = 202;
-        obj1.y = 415;
-        if (obj1.lives >= 1) {
-            obj1.lives = obj1.lives - 1;
-            livesDiv.innerHTML = obj1.lives;
+        this.x = 202;
+        this.y = 415;
+        if (this.lives >= 1) {
+            this.lives = this.lives - 1;
+            livesDiv.innerHTML = this.lives;
             scoreCard(-1);
         }
 
-        if (obj1.lives === 0) {
-            obj1.lives = 0;
-            obj1.score = 0;
-            livesDiv.innerHTML = obj1.lives;
-            scoreDiv.innerHTML = obj1.score;
+        if (this.lives === 0) {
+            this.lives = 0;
+            this.score = 0;
+            livesDiv.innerHTML = this.lives;
+            scoreDiv.innerHTML = this.score;
         }
         return true;
     } else {
@@ -568,30 +548,40 @@ function checkCollisions(obj1, obj2) {
     }
 }
 
-//Function responsible for collision between player and different game elements.
-function checkCollection(player) {
+//Function responsible for collision between player and star character.
+Player.prototype.starCollection = function(stars) {
     //condition for collection of star object by player.
-    if (player.lives != 0) {
-        if (player.x < star.x + 50 &&
-            player.x + 50 > star.x &&
-            player.y < star.y + 50 &&
-            player.y + 50 > star.y) {
+    if (this.lives != 0) {
+        if (this.x < stars.x + 50 &&
+            this.x + 50 > stars.x &&
+            this.y < stars.y + 50 &&
+            this.y + 50 > stars.y) {
             scoreCard(2);
         }
+    }
+}
 
+//Function responsible for collision between player and heart character.
+Player.prototype.heartCollection = function(hearts) {
+    if (this.lives != 0) {
         //condition for collection of heart object by player.
-        if ((player.x < heart.x + 50) &&
-            (player.x + 50 > heart.x) &&
-            (player.y < heart.y + 50) &&
-            (50 + player.y > heart.y)) {
+        if ((this.x < hearts.x + 50) &&
+            (this.x + 50 > hearts.x) &&
+            (this.y < hearts.y + 50) &&
+            (50 + this.y > hearts.y)) {
             scoreCard(5);
         }
+    }
+}
 
+//Function responsible for collision between player and gem character.
+Player.prototype.gemCollection = function(gems) {
+    if (this.lives != 0) {
         //condition for collection of gem object by player.
-        if ((player.x < gem.x + 50) &&
-            (player.x + 50 > gem.x) &&
-            (player.y < gem.y + 50) &&
-            (50 + player.y > gem.y)) {
+        if ((this.x < gems.x + 50) &&
+            (this.x + 50 > gems.x) &&
+            (this.y < gem.y + 50) &&
+            (50 + this.y > gems.y)) {
             scoreCard(1);
         }
     }
