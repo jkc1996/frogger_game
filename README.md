@@ -15,7 +15,7 @@ In this game you have a Player,Enemies (Bugs), and lots of Treasure (Collectable
 
 ## How to play the Game ? 
 
-1. First of all click on the **Start Game** button to start the game.
+1. First of all click on the **Start New Game** button to start the game.
 2. This will initialize the game timer and _you will be provided with **3 lives** initially._ **The game is timed for _1 minute & 30 seconds_**. After the timer expired game will stop.
 3. To move the player on the screen use arrow keys.
 4. You will get lots of collectables like **Gems ,Stars & Hearts !** during your game journey. _Each collectables comes with certain points and lives:_
@@ -29,7 +29,7 @@ In this game you have a Player,Enemies (Bugs), and lots of Treasure (Collectable
 _Two things will terminate your game:_
     - **If your lives become 0 by colliding our Enemy.**
     - **Or you couldn't score 2500 points in given time.**
-8. After winning, loosing or between the game, if you want you can start the new game by pressing **New Game** Button.
+8. After winning, loosing or between the game, if you want you can start the new game by pressing **Start New Game** Button.
 
 _The road is not simple & target is not easy, So Do your best to achieve target and do not let our enemy step you! All the Best !!_
 
