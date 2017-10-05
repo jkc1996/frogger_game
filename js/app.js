@@ -16,7 +16,7 @@ var livesDiv = document.getElementById("lives");
  * gameTiming() controls the functionality related to the timing.
  * clearMessage() clears the message at the top part of the canvas.
  * scoreCard(gameEvent) displays the different events and the according to that event score & lives.
-*/
+ */
 
 function gameTiming() {
     seconds -= 1;
@@ -99,7 +99,7 @@ function scoreCard(gameEvent) {
             ctx.font = "24px Helvetica";
             ctx.textAlign = "center";
             ctx.fillStyle = "black";
-            ctx.fillText("AGAIN !!", 150,20);
+            ctx.fillText("AGAIN !!", 150, 20);
             player.score += 100;
             scoreDiv.innerHTML = player.score;
             player.x = 202;
@@ -131,24 +131,24 @@ function clearMessage() {
     /* It is required that every time when we start the game,first click on start new Game button.
      * In case of game over,winning condition or between the game if you want you can click
      * on the this button to start the fresh game.
-    */
+     */
     //Buttons for starting newGame.
 var newGameButton = document.getElementById('startNewGame');
 
-    /* Function which initial the newgame.this function calls function which
-       reset the position of player & initialize the timer again.
-    */
+/* Function which initial the newgame.this function calls function which
+   reset the position of player & initialize the timer again.
+*/
 function startNewGame() {
-        player.resetGame();
-        clearInterval(clearTimer);
-        // start new timer
-        timeDiv.innerHTML = '';
-        // reset time count
-        seconds = 30;
-        minutes = 1;
-        clearTimer = setInterval(gameTiming, 1000);
-        play = true;
-    }
+    player.resetGame();
+    clearInterval(clearTimer);
+    // start new timer
+    timeDiv.innerHTML = '';
+    // reset time count
+    seconds = 30;
+    minutes = 1;
+    clearTimer = setInterval(gameTiming, 1000);
+    play = true;
+}
 
 //Event responsible for starting new game.
 newGameButton.addEventListener('click', startNewGame);
