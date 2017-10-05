@@ -1,31 +1,25 @@
 body {
     text-align: center;
 }
-
 button {
     margin: 10px;
     width: 400px;
 }
-
 button:hover {
     border-color: red;
 }
-
 .timer-block {
     height: 2em;
 }
-
 .header {
     border: 2px solid blue;
 }
-
 .points {
     margin-right: 10px;
 }
-
 @media screen and (min-width: 1000px) {
-  .header {
-    width: 505px;
-    margin: 0 auto;
-  }
+    .header {
+        width: 505px;
+        margin: 0 auto;
+    }
 }
